@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Ahmad Khaled Store | VIP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --neon-blue: #00d2ff;
+            --neon-purple: #9d00ff;
+            --bg-dark: #05070a;
+            --glass: rgba(255, 255, 255, 0.04);
+        }
+
+        * { box-sizing: border-box; font-family: 'Cairo', sans-serif; -webkit-tap-highlight-color: transparent; }
+        body { background-color: var(--bg-dark); color: white; margin: 0; overflow-x: hidden; user-select: none; }
+
+        /* شاشة التحميل */
+        #preloader { position: fixed; inset: 0; background: #000; z-index: 10000; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        .loader-logo { font-size: 18px; font-weight: 900; color: var(--neon-blue); letter-spacing: 3px; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+        /* الهيدر المصغر */
+        header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 8px 4%; background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 999;
+            border-bottom: 1px solid rgba(0, 210, 255, 0.2);
+        }
+        .logo-box img { height: 35px; width: 35px; border-radius: 50%; border: 1.5px solid var(--neon-blue); object-fit: cover; }
+
+        /* البانر المصغر */
+        .banner-wrapper {
+            width: 100%; height: 160px; position: relative; overflow: hidden; border-bottom: 2px solid var(--neon-blue);
+        }
+        .banner-wrapper img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.4); }
+        .banner-content h1 { font-size: 1.3rem; font-weight: 900; text-shadow: 0 0 10px var(--neon-blue); position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; margin: 0; }
+
+        /* قسم الثقة المصغر */
+        .trust-section {
+            display: flex; justify-content: space-around; padding: 10px 2%; background: rgba(157, 0, 255, 0.03); gap: 5px;
+        }
+        .trust-item { text-align: center; flex: 1; }
+        .trust-icon { font-size: 1rem; display: block; }
+        .trust-item span { font-size: 0.65rem; font-weight: 700; color: var(--neon-blue); }
+
+        /* شبكة المنتجات (منتجين في الصف - تصغير كامل) */
+        .shop-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 15px 4%; }
+        @media (min-width: 900px) { .shop-grid { grid-template-columns: repeat(4, 1fr); gap: 20px; } }
+
+        .product-card {
+            background: var(--glass); border-radius: 12px; padding: 8px; text-align: center;
+            border: 1px solid rgba(255,255,255,0.05); transition: 0.3s;
+        }
+        .product-card img { width: 100%; border-radius: 10px; aspect-ratio: 1/1; object-fit: cover; margin-bottom: 5px; }
+        .product-card h3 { font-size: 0.75rem; margin: 5px 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #eee; }
+        .price-tag { color: var(--neon-blue); font-weight: 800; font-size: 0.85rem; display: block; margin-bottom: 8px; }
+
+        .action-btn {
+            background: linear-gradient(45deg, var(--neon-purple), var(--neon-blue));
+            border: none; color: white; padding: 8px; width: 100%; border-radius: 8px;
+            font-weight: 800; cursor: pointer; font-size: 0.7rem;
+        }
+
+        /* نافذة الطلب */
+        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 2000; align-items: center; justify-content: center; padding: 15px; backdrop-filter: blur(8px); }
+        .modal-body { background: #0d1117; width: 100%; max-width: 320px; padding: 20px; border-radius: 15px; border: 1px solid var(--neon-blue); }
+        input { width: 100%; padding: 10px; background: #161b22; border: 1px solid #30363d; border-radius: 8px; color: white; margin-bottom: 10px; outline: none; font-size: 0.8rem; }
+        
+        .payment-info { background: rgba(0, 210, 255, 0.05); border: 1px dashed var(--neon-blue); padding: 8px; border-radius: 8px; margin-bottom: 10px; font-size: 0.75rem; position: relative; }
+        .copy-btn { position: absolute; left: 5px; top: 5px; background: var(--neon-blue); border: none; padding: 2px 6px; border-radius: 4px; font-size: 0.6rem; font-weight: 700; cursor: pointer; }
+
+        footer { background: #000; padding: 20px; text-align: center; font-size: 0.6rem; color: #444; }
+        .legal { color: #ff4d4d; border: 1px solid #ff4d4d; padding: 8px; border-radius: 8px; margin-bottom: 10px; font-size: 0.65rem; }
+    </style>
+</head>
+<body oncontextmenu="return false;">
+
+<div id="preloader">
+    <div class="loader-logo">AHMAD KHALED</div>
+</div>
+
+<header>
+    <div class="logo-box"><img src="615339898_17852858355604926_6695071254693001252_n.jpg"></div>
+    <button class="action-btn" style="width: auto; padding: 4px 12px;" onclick="openModal('support_modal')">الدعم</button>
+</header>
+
+<section class="banner-wrapper">
+    <img src="615339898_17852858355604926_6695071254693001252_n.jpg">
+    <div class="banner-content"><h1>Ahmad khaled store</h1></div>
+</section>
+
+<section class="trust-section">
+    <div class="trust-item"><span class="trust-icon">⚡</span><span>شحن سريع</span></div>
+    <div class="trust-item"><span class="trust-icon">🔒</span><span>آمن 100%</span></div>
+    <div class="trust-item"><span class="trust-icon">📞</span><span>دعم فني</span></div>
+</section>
+
+<div class="shop-grid" id="product-list"></div>
+
+<div class="modal" id="pay_modal">
+    <div class="modal-body">
+        <h3 id="m_title" style="color:var(--neon-blue); margin:0 0 15px 0; font-size: 1rem;"></h3>
+        <input type="text" id="c_id" placeholder="ID اللاعب">
+        <input type="text" id="c_ph" placeholder="رقم الواتساب">
+        <div class="payment-info">
+            🏦 صفوة: <b>0780547443</b> <button class="copy-btn" onclick="copyText('0780547443')">نسخ</button><br><br>
+            🟡 باينانس: <b>827157346</b> <button class="copy-btn" onclick="copyText('827157346')">نسخ</button>
+        </div>
+        <input type="text" id="c_ref" placeholder="رقم المرجع (Ref)">
+        <button class="action-btn" onclick="sendOrder()">تأكيد الشراء</button>
+        <button onclick="closeModals()" style="background:none; border:none; color:#444; width:100%; margin-top:10px; cursor:pointer; font-size: 0.7rem;">إلغاء</button>
+    </div>
+</div>
+
+<div class="modal" id="support_modal">
+    <div class="modal-body">
+        <h3 style="color:var(--neon-purple); margin:0 0 15px 0; font-size: 1rem;">تذكرة دعم</h3>
+        <input type="text" id="s_n" placeholder="الاسم">
+        <textarea id="s_m" style="width:100%; background:#161b22; color:white; border:1px solid #30363d; border-radius:8px; padding:10px; margin-bottom:10px; font-size: 0.8rem;" rows="3" placeholder="المشكلة..."></textarea>
+        <button class="action-btn" style="background:var(--neon-purple);" onclick="sendSupport()">إرسال</button>
+        <button onclick="closeModals()" style="background:none; border:none; color:#444; width:100%; margin-top:10px; cursor:pointer; font-size: 0.7rem;">إغلاق</button>
+    </div>
+</div>
+
+<footer>
+    <div class="legal">لا يتحمل المتجر مسؤولية الأخطاء في الـ ID المدخل.</div>
+    <p>Ahmad Khaled &copy; 2026</p>
+</footer>
+
+<script>
+    const CONFIG = { 
+        TOKEN: "8081128918:AAHfZvluKi6a22xQvHCIhuYJrPXszHo7TEA", 
+        CHAT_ID: "6974387734",
+        SHEET_API: "https://script.google.com/macros/s/AKfycbzMBdQfyKJrj1EM6nRoPl73MQlhTAKTPxNxbXOuEHtIrDi8lz7ehUFJ8OX8M-YK7_Lwjw/exec"
+    };
+
+    async function fetchProducts() {
+        try {
+            const response = await fetch(CONFIG.SHEET_API);
+            const data = await response.json();
+            const grid = document.getElementById('product-list');
+            grid.innerHTML = "";
+            data.forEach(p => {
+                grid.innerHTML += `
+                <div class="product-card">
+                    <img src="${p.img}" loading="lazy" onerror="this.src='https://via.placeholder.com/150'">
+                    <h3>${p.name}</h3>
+                    <span class="price-tag">${p.price}</span>
+                    <button class="action-btn" onclick="openOrder('${p.name}', '${p.price}')">شحن</button>
+                </div>`;
+            });
+            document.getElementById('preloader').style.display = 'none';
+        } catch (e) { console.error(e); }
+    }
+
+    window.onload = fetchProducts;
+
+    let selectedItem = null;
+    function openOrder(n, p) { selectedItem = {n, p}; document.getElementById('m_title').innerText = n; document.getElementById('pay_modal').style.display='flex'; }
+    function openModal(id) { document.getElementById(id).style.display='flex'; }
+    function closeModals() { document.querySelectorAll('.modal').forEach(m => m.style.display='none'); }
+    function copyText(t) { navigator.clipboard.writeText(t); alert("تم النسخ!"); }
+
+    async function sendOrder() {
+        const id = document.getElementById('c_id').value, ph = document.getElementById('c_ph').value, ref = document.getElementById('c_ref').value;
+        if(!id || !ph || !ref) return alert("أكمل البيانات!");
+        const msg = `📥 طلب جديد\nالمنتج: ${selectedItem.n}\nالايدي: ${id}\nالهاتف: ${ph}\nالمرجع: ${ref}`;
+        await fetch(`https://api.telegram.org/bot${CONFIG.TOKEN}/sendMessage?chat_id=${CONFIG.CHAT_ID}&text=${encodeURIComponent(msg)}`);
+        alert("تم استلام طلبك!"); closeModals();
+    }
+
+    async function sendSupport() {
+        const n = document.getElementById('s_n').value, m = document.getElementById('s_m').value;
+        if(!n || !m) return alert("أكمل البيانات!");
+        const msg = `🛠️ دعم\n👤 الاسم: ${n}\n📝 المشكلة: ${m}`;
+        await fetch(`https://api.telegram.org/bot${CONFIG.TOKEN}/sendMessage?chat_id=${CONFIG.CHAT_ID}&text=${encodeURIComponent(msg)}`);
+        alert("تم الإرسال!"); closeModals();
+    }
+</script>
+</body>
+</html>
