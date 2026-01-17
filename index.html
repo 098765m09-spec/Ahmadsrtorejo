@@ -30,6 +30,13 @@
         }
         .logo-box img { height: 35px; width: 35px; border-radius: 50%; border: 1.5px solid var(--neon-blue); object-fit: cover; }
 
+        /* شريط البحث */
+        .search-area { padding: 10px 4%; }
+        #searchInput { 
+            width: 100%; padding: 12px; background: #111; border: 1px solid var(--neon-purple); 
+            border-radius: 10px; color: white; outline: none; font-size: 0.85rem;
+        }
+
         /* البانر المصغر */
         .banner-wrapper {
             width: 100%; height: 160px; position: relative; overflow: hidden; border-bottom: 2px solid var(--neon-blue);
@@ -45,7 +52,7 @@
         .trust-icon { font-size: 1rem; display: block; }
         .trust-item span { font-size: 0.65rem; font-weight: 700; color: var(--neon-blue); }
 
-        /* شبكة المنتجات (منتجين في الصف - تصغير كامل) */
+        /* شبكة المنتجات */
         .shop-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 15px 4%; }
         @media (min-width: 900px) { .shop-grid { grid-template-columns: repeat(4, 1fr); gap: 20px; } }
 
@@ -66,10 +73,16 @@
         /* نافذة الطلب */
         .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 2000; align-items: center; justify-content: center; padding: 15px; backdrop-filter: blur(8px); }
         .modal-body { background: #0d1117; width: 100%; max-width: 320px; padding: 20px; border-radius: 15px; border: 1px solid var(--neon-blue); }
-        input { width: 100%; padding: 10px; background: #161b22; border: 1px solid #30363d; border-radius: 8px; color: white; margin-bottom: 10px; outline: none; font-size: 0.8rem; }
+        input, textarea { width: 100%; padding: 10px; background: #161b22; border: 1px solid #30363d; border-radius: 8px; color: white; margin-bottom: 10px; outline: none; font-size: 0.8rem; }
         
         .payment-info { background: rgba(0, 210, 255, 0.05); border: 1px dashed var(--neon-blue); padding: 8px; border-radius: 8px; margin-bottom: 10px; font-size: 0.75rem; position: relative; }
         .copy-btn { position: absolute; left: 5px; top: 5px; background: var(--neon-blue); border: none; padding: 2px 6px; border-radius: 4px; font-size: 0.6rem; font-weight: 700; cursor: pointer; }
+
+        /* تتبع الطلب */
+        .tracking-area { background: #0a0e14; padding: 20px 4%; border-top: 1px solid #1f2937; margin-top: 30px; }
+        .tracking-card { background: var(--glass); padding: 15px; border-radius: 12px; border: 1px solid var(--neon-blue); }
+        .tracking-card h2 { font-size: 0.9rem; color: var(--neon-blue); margin-bottom: 10px; }
+        #trackStatusResult { margin-top: 10px; font-size: 0.8rem; padding: 10px; border-radius: 8px; background: rgba(255,255,255,0.03); display: none; }
 
         footer { background: #000; padding: 20px; text-align: center; font-size: 0.6rem; color: #444; }
         .legal { color: #ff4d4d; border: 1px solid #ff4d4d; padding: 8px; border-radius: 8px; margin-bottom: 10px; font-size: 0.65rem; }
@@ -86,6 +99,10 @@
     <button class="action-btn" style="width: auto; padding: 4px 12px;" onclick="openModal('support_modal')">الدعم</button>
 </header>
 
+<div class="search-area">
+    <input type="text" id="searchInput" placeholder="بحث عن منتج..." onkeyup="filterProducts()">
+</div>
+
 <section class="banner-wrapper">
     <div class="banner-content"><h1>Ahmad khaled store</h1></div>
 </section>
@@ -97,6 +114,15 @@
 </section>
 
 <div class="shop-grid" id="product-list"></div>
+
+<section class="tracking-area">
+    <div class="tracking-card">
+        <h2>🔍 تتبع حالة طلبك</h2>
+        <input type="text" id="orderIdInput" placeholder="أدخل رقم الطلب...">
+        <button class="action-btn" onclick="trackMyOrder()">استعلام</button>
+        <div id="trackStatusResult"></div>
+    </div>
+</section>
 
 <div class="modal" id="pay_modal">
     <div class="modal-body">
@@ -117,7 +143,7 @@
     <div class="modal-body">
         <h3 style="color:var(--neon-purple); margin:0 0 15px 0; font-size: 1rem;">تذكرة دعم</h3>
         <input type="text" id="s_n" placeholder="الاسم">
-        <textarea id="s_m" style="width:100%; background:#161b22; color:white; border:1px solid #30363d; border-radius:8px; padding:10px; margin-bottom:10px; font-size: 0.8rem;" rows="3" placeholder="المشكلة..."></textarea>
+        <textarea id="s_m" rows="3" placeholder="المشكلة..."></textarea>
         <button class="action-btn" style="background:var(--neon-purple);" onclick="sendSupport()">إرسال</button>
         <button onclick="closeModals()" style="background:none; border:none; color:#444; width:100%; margin-top:10px; cursor:pointer; font-size: 0.7rem;">إغلاق</button>
     </div>
@@ -132,26 +158,38 @@
     const CONFIG = { 
         TOKEN: "8081128918:AAHfZvluKi6a22xQvHCIhuYJrPXszHo7TEA", 
         CHAT_ID: "6974387734",
-        SHEET_API: "https://script.google.com/macros/s/AKfycbzMBdQfyKJrj1EM6nRoPl73MQlhTAKTPxNxbXOuEHtIrDi8lz7ehUFJ8OX8M-YK7_Lwjw/exec"
+        SHEET_API: "https://script.google.com/macros/s/AKfycbw74b743hy6daGM4hnGeyntwCpXK9zzoQPlEFxqTZ7wh6S4OLLtwWNIkI-lhUr7HVqnGg/exec"
     };
+
+    let allProducts = [];
 
     async function fetchProducts() {
         try {
             const response = await fetch(CONFIG.SHEET_API);
-            const data = await response.json();
-            const grid = document.getElementById('product-list');
-            grid.innerHTML = "";
-            data.forEach(p => {
-                grid.innerHTML += `
-                <div class="product-card">
-                    <img src="${p.img}" loading="lazy" onerror="this.src='https://via.placeholder.com/150'">
-                    <h3>${p.name}</h3>
-                    <span class="price-tag">${p.price}</span>
-                    <button class="action-btn" onclick="openOrder('${p.name}', '${p.price}')">شحن</button>
-                </div>`;
-            });
+            allProducts = await response.json();
+            renderProducts(allProducts);
             document.getElementById('preloader').style.display = 'none';
         } catch (e) { console.error(e); }
+    }
+
+    function renderProducts(data) {
+        const grid = document.getElementById('product-list');
+        grid.innerHTML = "";
+        data.forEach(p => {
+            grid.innerHTML += `
+            <div class="product-card">
+                <img src="${p.img}" loading="lazy" onerror="this.src='https://via.placeholder.com/150'">
+                <h3>${p.name}</h3>
+                <span class="price-tag">${p.price}</span>
+                <button class="action-btn" onclick="openOrder('${p.name}', '${p.price}')">شحن</button>
+            </div>`;
+        });
+    }
+
+    function filterProducts() {
+        const val = document.getElementById('searchInput').value.toLowerCase();
+        const filtered = allProducts.filter(p => p.name.toLowerCase().includes(val));
+        renderProducts(filtered);
     }
 
     window.onload = fetchProducts;
@@ -165,9 +203,42 @@
     async function sendOrder() {
         const id = document.getElementById('c_id').value, ph = document.getElementById('c_ph').value, ref = document.getElementById('c_ref').value;
         if(!id || !ph || !ref) return alert("أكمل البيانات!");
-        const msg = `📥 طلب جديد\nالمنتج: ${selectedItem.n}\nالايدي: ${id}\nالهاتف: ${ph}\nالمرجع: ${ref}`;
+        
+        const orderNum = Math.floor(100000 + Math.random() * 900000); 
+        
+        // 1. إرسال لـ Google Sheets للتخزين
+        try {
+            await fetch(CONFIG.SHEET_API, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ orderId: orderNum, itemName: selectedItem.n })
+            });
+        } catch(e) {}
+
+        // 2. إرسال لـ Telegram
+        const msg = `📥 طلب جديد (#${orderNum})\nالمنتج: ${selectedItem.n}\nالايدي: ${id}\nالهاتف: ${ph}\nالمرجع: ${ref}`;
         await fetch(`https://api.telegram.org/bot${CONFIG.TOKEN}/sendMessage?chat_id=${CONFIG.CHAT_ID}&text=${encodeURIComponent(msg)}`);
-        alert("تم استلام طلبك!"); closeModals();
+        
+        alert(`تم استلام طلبك! رقم الطلب: ${orderNum}\nاحفظ الرقم لتتبع الحالة من أسفل الصفحة.`);
+        closeModals();
+    }
+
+    async function trackMyOrder() {
+        const orderId = document.getElementById('orderIdInput').value;
+        const resDiv = document.getElementById('trackStatusResult');
+        if(!orderId) return alert("أدخل رقم الطلب");
+
+        resDiv.style.display = "block";
+        resDiv.innerHTML = "جاري التحقق... 🔍";
+
+        try {
+            const response = await fetch(`${CONFIG.SHEET_API}?orderId=${orderId}`);
+            const data = await response.json();
+            resDiv.innerHTML = `الحالة الحالية: <b style="color:var(--neon-blue)">${data.status}</b>`;
+        } catch (e) {
+            resDiv.innerHTML = "تعذر جلب البيانات. تأكد من اتصالك.";
+        }
     }
 
     async function sendSupport() {
@@ -179,5 +250,4 @@
     }
 </script>
 </body>
-
 </html>
