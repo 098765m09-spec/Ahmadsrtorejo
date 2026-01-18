@@ -3,7 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Ahmad Khaled Store</title>
+    
+    <title>Ahmad Khaled Store | متجر أحمد خالد لشحن الألعاب</title>
+    <meta name="description" content="متجر أحمد خالد - خيارك الأول لشحن الألعاب والخدمات الرقمية بسرعة وأمان. دعم فني متواصل وأفضل الأسعار.">
+    <meta name="keywords" content="شحن العاب, شدات, جواهر, بنك صفوة, باينانس, احمد خالد, Ahmad Khaled">
+    <meta property="og:title" content="Ahmad Khaled Store">
+    <meta property="og:description" content="اشحن ألعابك الآن بأمان وسرعة فائقة.">
+    <meta property="og:image" content="615339898_17852858355604926_6695071254693001252_n.jpg">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
@@ -15,34 +23,35 @@
             --whatsapp-green: #25d366;
         }
 
-        * { box-sizing: border-box; font-family: 'Cairo', sans-serif; -webkit-tap-highlight-color: transparent; }
+        * { box-sizing: border-box; font-family: 'Cairo', sans-serif; -webkit-tap-highlight-color: transparent; scroll-behavior: smooth; }
         body { background-color: var(--bg-dark); color: white; margin: 0; overflow-x: hidden; user-select: none; }
 
-        /* تأثير Scanlines الشاشة المستقبيلة */
         .scanlines { position: fixed; inset: 0; background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.05) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.02)); z-index: 9998; pointer-events: none; background-size: 100% 4px, 3px 100%; }
 
-        /* شاشة التحميل */
         #preloader { position: fixed; inset: 0; background: #000; z-index: 10000; display: flex; justify-content: center; align-items: center; flex-direction: column; }
         .loader-logo { font-size: 20px; font-weight: 900; color: var(--neon-blue); letter-spacing: 3px; animation: pulse-glow 1.5s infinite alternate; }
         @keyframes pulse-glow { from { text-shadow: 0 0 5px var(--neon-blue); opacity: 0.5; } to { text-shadow: 0 0 25px var(--neon-blue); opacity: 1; } }
 
-        /* الهيدر */
         header { display: flex; justify-content: space-between; align-items: center; padding: 10px 4%; background: rgba(0, 0, 0, 0.9); backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 999; border-bottom: 1px solid rgba(0, 210, 255, 0.2); }
         .logo-box img { height: 45px; width: 45px; border-radius: 50%; border: 2px solid var(--neon-blue); box-shadow: 0 0 10px var(--neon-blue); }
 
-        /* شريط البحث */
+        /* أزرار التصنيفات */
+        .categories { display: flex; gap: 10px; padding: 10px 4%; overflow-x: auto; white-space: nowrap; scrollbar-width: none; }
+        .categories::-webkit-scrollbar { display: none; }
+        .cat-btn { background: var(--glass); border: 1px solid var(--neon-blue); color: white; padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; cursor: pointer; transition: 0.3s; }
+        .cat-btn.active { background: var(--neon-blue); color: black; font-weight: bold; }
+
         .search-area { padding: 15px 4%; }
         #searchInput { width: 100%; padding: 14px; background: #0d1117; border: 1px solid var(--neon-purple); border-radius: 12px; color: white; outline: none; transition: 0.3s; box-shadow: inset 0 0 10px rgba(157, 0, 255, 0.1); }
         #searchInput:focus { border-color: var(--neon-blue); box-shadow: 0 0 15px rgba(0, 210, 255, 0.3); }
 
-        /* البانر */
         .banner-wrapper { width: 100%; height: 180px; position: relative; overflow: hidden; border-bottom: 2px solid var(--neon-blue); background: #000; display: flex; align-items: center; justify-content: center; }
         .banner-wrapper img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.35) contrast(1.2); position: absolute; }
         .banner-content h1 { position: relative; z-index: 2; font-size: 1.6rem; font-weight: 900; color: #fff; text-shadow: 0 0 15px var(--neon-blue); border: 2px solid var(--neon-blue); padding: 8px 25px; border-radius: 5px; letter-spacing: 2px; }
 
-        /* شبكة المنتجات */
-        .shop-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 20px 4%; }
+        .shop-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 20px 4%; min-height: 200px; }
         @media (min-width: 900px) { .shop-grid { grid-template-columns: repeat(4, 1fr); } }
+        
         .product-card { background: var(--glass); border-radius: 15px; padding: 12px; text-align: center; border: 1px solid rgba(255,255,255,0.05); transition: 0.4s; position: relative; }
         .product-card:hover { transform: translateY(-8px); border-color: var(--neon-blue); box-shadow: 0 10px 20px rgba(0, 210, 255, 0.2); }
         .product-card img { width: 100%; border-radius: 12px; aspect-ratio: 1/1; object-fit: cover; border: 1px solid rgba(255,255,255,0.1); }
@@ -50,46 +59,43 @@
         .price-tag { color: var(--neon-blue); font-weight: 900; font-size: 1.1rem; display: block; margin-bottom: 12px; }
 
         .action-btn { background: linear-gradient(45deg, var(--neon-purple), var(--neon-blue)); border: none; color: white; padding: 10px; width: 100%; border-radius: 8px; font-weight: 900; cursor: pointer; transition: 0.3s; text-transform: uppercase; }
-        .action-btn:hover { filter: brightness(1.2); box-shadow: 0 0 20px rgba(0, 210, 255, 0.4); }
+        .action-btn:hover:not(:disabled) { filter: brightness(1.2); box-shadow: 0 0 20px rgba(0, 210, 255, 0.4); }
+        .action-btn:disabled { background: #333; cursor: not-allowed; opacity: 0.6; }
 
-        /* تتبع الطلب */
         .tracking-area { background: #070a0e; padding: 30px 4%; border-top: 1px solid rgba(0,210,255,0.1); margin-top: 20px; }
         .tracking-card { background: var(--glass); padding: 20px; border-radius: 12px; border: 1px solid var(--neon-purple); text-align: center; }
         #trackStatusResult { margin-top: 15px; font-size: 0.9rem; padding: 15px; border-radius: 8px; background: rgba(0,210,255,0.05); border: 1px solid var(--neon-blue); display: none; }
 
-        /* قسم التقييمات */
         .reviews-section { padding: 40px 4%; background: #05070a; border-top: 1px solid var(--neon-blue); }
         .add-review-box { background: #0d1117; padding: 20px; border-radius: 12px; border: 1px solid var(--neon-purple); margin-bottom: 30px; }
         .star-rating { display: flex; gap: 8px; margin: 10px 0; font-size: 1.8rem; color: #333; cursor: pointer; }
         .star-rating .active { color: #ffca08; text-shadow: 0 0 10px rgba(255,202,8,0.6); }
         .review-card { background: var(--glass); padding: 15px; border-radius: 10px; margin-bottom: 15px; border-right: 4px solid var(--neon-blue); }
-        .review-name { font-weight: 800; color: var(--neon-blue); }
 
-        /* طرق الدفع */
-        .payment-info { background: rgba(0, 210, 255, 0.05); border: 1px dashed var(--neon-blue); padding: 12px; border-radius: 8px; margin: 15px 0; font-size: 0.85rem; }
-        .pay-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-        .copy-btn { background: var(--neon-blue); border: none; padding: 4px 10px; border-radius: 5px; font-size: 0.7rem; font-weight: 900; cursor: pointer; color: #000; }
-
-        /* النوافذ الاحترافية */
         .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 2000; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(10px); }
-        .modal-body { background: #05070a; width: 100%; max-width: 380px; padding: 25px; border-radius: 8px; border: 2px solid var(--neon-blue); position: relative; box-shadow: 0 0 30px rgba(0,210,255,0.2); }
+        .modal-body { background: #05070a; width: 100%; max-width: 380px; padding: 25px; border-radius: 8px; border: 2px solid var(--neon-blue); position: relative; }
+        
         input, textarea { width: 100%; padding: 12px; background: #0d1117; border: 1px solid #1f2937; border-radius: 8px; color: white; margin-bottom: 12px; outline: none; font-size: 0.9rem; }
-        input:focus { border-color: var(--neon-blue); }
 
-        .whatsapp-float { position: fixed; bottom: 25px; left: 25px; background: var(--whatsapp-green); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 9999; box-shadow: 0 0 20px rgba(37, 211, 102, 0.4); transition: 0.3s; }
-        .whatsapp-float:hover { transform: scale(1.1); }
-        .whatsapp-float svg { width: 32px; fill: white; }
+        .whatsapp-float { position: fixed; bottom: 25px; left: 25px; background: var(--whatsapp-green); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 9997; box-shadow: 0 0 20px rgba(37, 211, 102, 0.4); }
+        
+        /* زر العودة للأعلى */
+        #backToTop { position: fixed; bottom: 25px; right: 25px; background: var(--neon-blue); width: 45px; height: 45px; border-radius: 10px; display: none; align-items: center; justify-content: center; z-index: 9997; cursor: pointer; border: none; color: black; font-weight: bold; font-size: 20px; box-shadow: 0 0 15px var(--neon-blue); }
 
         footer { background: #000; padding: 30px; text-align: center; font-size: 0.75rem; color: #555; border-top: 1px solid #111; }
+        
+        .no-results { grid-column: 1 / -1; text-align: center; padding: 40px; color: #555; font-size: 1.1rem; }
     </style>
 </head>
 <body>
 
 <div class="scanlines"></div>
-<div id="preloader"><div class="loader-logo">جار التحميل...</div></div>
+<div id="preloader"><div class="loader-logo">Ahmad Khaled Store...</div></div>
+
+<button id="backToTop" onclick="scrollToTop()">↑</button>
 
 <a href="https://wa.me/962780547443" target="_blank" class="whatsapp-float">
-    <svg viewBox="0 0 448 512"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.7 17.8 69.4 27.2 106.2 27.2 122.4 0 222-99.6 222-222 0-59.3-23-115.1-65-157.1zM223.9 445.9c-33.1 0-65.7-8.9-94.1-25.7l-6.7-4-69.8 18.3L71.6 366l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.9-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-82.7 184.6-184.5 185z"/></svg>
+    <svg width="32" height="32" fill="white" viewBox="0 0 448 512"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.7 17.8 69.4 27.2 106.2 27.2 122.4 0 222-99.6 222-222 0-59.3-23-115.1-65-157.1zM223.9 445.9c-33.1 0-65.7-8.9-94.1-25.7l-6.7-4-69.8 18.3L71.6 366l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.9-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-82.7 184.6-184.5 185z"/></svg>
 </a>
 
 <header>
@@ -99,6 +105,13 @@
 
 <div class="search-area">
     <input type="text" id="searchInput" placeholder="بحث سريع عن منتج..." onkeyup="filterProducts()">
+</div>
+
+<div class="categories" id="cat-list">
+    <button class="cat-btn active" onclick="filterByCategory('الكل', this)">الكل</button>
+    <button class="cat-btn" onclick="filterByCategory('الاشتراكات', this)">شحن</button>
+    <button class="cat-btn" onclick="filterByCategory('حسابات', this)">حسابات</button>
+    <button class="cat-btn" onclick="filterByCategory('البلس', this)">بطاقات</button>
 </div>
 
 <section class="banner-wrapper">
@@ -111,81 +124,78 @@
     <div class="tracking-card">
         <h2 style="font-size: 1.1rem; color: var(--neon-blue); margin-bottom: 15px;">🔍 تتبع حالة طلبك</h2>
         <input type="text" id="orderIdInput" placeholder="أدخل رقم طلبك (6 أرقام)">
-        <button class="action-btn" onclick="trackMyOrder()">تحقق الآن</button>
+        <button class="action-btn" id="trackBtn" onclick="trackMyOrder()">تحقق الآن</button>
         <div id="trackStatusResult"></div>
     </div>
 </section>
 
 <section class="reviews-section">
-    <h2 style="text-align: center; color: var(--neon-blue); margin-bottom: 25px;">⭐ تقييمات العملاء الـ VIP</h2>
+    <h2 style="text-align: center; color: var(--neon-blue); margin-bottom: 25px;">⭐ تقييمات العملاء</h2>
     <div class="add-review-box">
         <input type="text" id="rev_name" placeholder="اسمك الكريم">
         <div class="star-rating" id="starInput">
             <span onclick="setStars(1)">★</span><span onclick="setStars(2)">★</span><span onclick="setStars(3)">★</span><span onclick="setStars(4)">★</span><span onclick="setStars(5)">★</span>
         </div>
-        <textarea id="rev_text" rows="2" placeholder="ما رأيك في جودة وسرعة الخدمة؟"></textarea>
-        <button class="action-btn" onclick="submitReview()">نشر التقييم</button>
+        <textarea id="rev_text" rows="2" placeholder="ما رأيك في الخدمة؟"></textarea>
+        <button class="action-btn" id="revBtn" onclick="submitReview()">نشر التقييم</button>
     </div>
-    <div id="reviews-container">
-        <p style="text-align: center; color: #444;">جاري جلب الآراء...</p>
-    </div>
+    <div id="reviews-container"></div>
 </section>
 
 <div class="modal" id="pay_modal">
     <div class="modal-body">
-        <h3 id="m_title" style="color:var(--neon-blue); margin-bottom: 15px; font-size: 1.1rem;"></h3>
+        <h3 id="m_title" style="color:var(--neon-blue); margin-bottom: 15px;"></h3>
         <input type="text" id="c_id" placeholder="آيدي اللاعب (ID)">
-        <input type="text" id="c_ph" placeholder="رقم الواتساب للتواصل">
-        
-        <div class="payment-info">
-            <div class="pay-row"><span>🏦 بنك صفوة: <b>0780547443</b></span><button class="copy-btn" onclick="copyText('0780547443')">نسخ</button></div>
-            <div style="height: 10px;"></div>
-            <div class="pay-row"><span>🟡 باينانس: <b>827157346</b></span><button class="copy-btn" onclick="copyText('827157346')">نسخ</button></div>
+        <input type="text" id="c_ph" placeholder="رقم الواتساب">
+        <div style="background: rgba(0,210,255,0.1); padding: 10px; border-radius: 8px; margin-bottom: 10px; font-size: 0.8rem;">
+            صفوة: 0780547443 <button onclick="copyText('0780547443')" style="float:left">نسخ</button><br><br>
+            باينانس: 827157346 <button onclick="copyText('827157346')" style="float:left">نسخ</button>
         </div>
-
-        <input type="text" id="c_ref" placeholder="رقم المرجع (Ref Number)">
-        <button class="action-btn" onclick="sendOrder()">تأكيد وإرسال الطلب</button>
-        <button onclick="closeModals()" style="background:none; border:none; color:#555; width:100%; margin-top:10px; cursor:pointer; font-weight: 700;">إلغاء العملية</button>
+        <input type="text" id="c_ref" placeholder="رقم المرجع (Ref)">
+        <button class="action-btn" id="confirmOrderBtn" onclick="sendOrder()">تأكيد الطلب</button>
+        <button onclick="closeModals()" style="background:none; border:none; color:#555; width:100%; margin-top:10px;">إلغاء</button>
     </div>
 </div>
 
 <div class="modal" id="support_modal">
     <div class="modal-body">
-        <h3 style="color:var(--neon-purple); margin-bottom:15px;">مركز الدعم الفني</h3>
-        <input type="text" id="s_n" placeholder="اسمك">
-        <textarea id="s_m" rows="3" placeholder="اكتب مشكلتك بالتفصيل..."></textarea>
-        <button class="action-btn" style="background:var(--neon-purple);" onclick="sendSupport()">إرسال التذكرة</button>
-        <button onclick="closeModals()" style="background:none; border:none; color:#555; width:100%; margin-top:10px; cursor:pointer;">إغلاق</button>
+        <h3>الدعم الفني</h3>
+        <input type="text" id="s_n" placeholder="الاسم">
+        <textarea id="s_m" rows="3" placeholder="المشكلة..."></textarea>
+        <button class="action-btn" id="supportBtn" onclick="sendSupport()">إرسال</button>
+        <button onclick="closeModals()" style="background:none; border:none; color:#555; width:100%; margin-top:10px;">إغلاق</button>
     </div>
 </div>
 
-<footer>
-    <p>© 2026 AHMAD KHALED  STORE | جميع الحقوق محفوظة</p>
-</footer>
+<footer><p>© 2026 AHMAD KHALED STORE | جميع الحقوق محفوظة</p></footer>
 
 <script>
     const CONFIG = { 
-        TOKEN: "8081128918:AAHfZvluKi6a22xQvHCIhuYJrPXszHo7TEA", 
-        CHAT_ID: "6974387734",
+        // ملاحظة: الرابط التالي يجب أن يعالج إرسال التليجرام داخلياً لحماية التوكن
         SHEET_API: "https://script.google.com/macros/s/AKfycbw74b743hy6daGM4hnGeyntwCpXK9zzoQPlEFxqTZ7wh6S4OLLtwWNIkI-lhUr7HVqnGg/exec"
     };
 
     let allProducts = [], currentStars = 0;
 
-    // جلب المنتجات من Sheet1
+    // جلب المنتجات
     async function fetchProducts() {
         try {
             const res = await fetch(CONFIG.SHEET_API);
             allProducts = await res.json();
             renderProducts(allProducts);
             document.getElementById('preloader').style.display = 'none';
-        } catch (e) { console.error("Error fetching products"); }
+        } catch (e) { console.error("Error"); }
     }
 
     function renderProducts(data) {
-        document.getElementById('product-list').innerHTML = data.map(p => `
+        const container = document.getElementById('product-list');
+        if (data.length === 0) {
+            container.innerHTML = `<div class="no-results">عذراً، لم يتم العثور على نتائج للبحث.</div>`;
+            return;
+        }
+        container.innerHTML = data.map(p => `
             <div class="product-card">
-                <img src="${p.img}" onerror="this.src='https://via.placeholder.com/200/05070a/00d2ff?text=Product'">
+                <img src="${p.img || ''}" loading="lazy" onerror="this.src='https://via.placeholder.com/200?text=No+Image'">
                 <h3>${p.name}</h3>
                 <span class="price-tag">${p.price}</span>
                 <button class="action-btn" onclick="openOrder('${p.name}')">اطلب الآن</button>
@@ -194,95 +204,91 @@
 
     function filterProducts() {
         const val = document.getElementById('searchInput').value.toLowerCase();
-        renderProducts(allProducts.filter(p => p.name.toLowerCase().includes(val)));
+        const filtered = allProducts.filter(p => p.name.toLowerCase().includes(val));
+        renderProducts(filtered);
     }
 
-    // نظام النجوم
+    function filterByCategory(cat, btn) {
+        document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        if(cat === 'الكل') return renderProducts(allProducts);
+        renderProducts(allProducts.filter(p => p.category === cat));
+    }
+
+    // زر العودة للأعلى
+    window.onscroll = function() {
+        document.getElementById("backToTop").style.display = (window.pageYOffset > 400) ? "flex" : "none";
+    };
+    function scrollToTop() { window.scrollTo(0, 0); }
+
     function setStars(n) {
         currentStars = n;
         document.querySelectorAll('#starInput span').forEach((s, i) => s.classList.toggle('active', i < n));
     }
 
-    // إرسال تقييم إلى ورقة Reviews
+    // حماية الأزرار عند الإرسال
+    async function handleRequest(btnId, callback) {
+        const btn = document.getElementById(btnId);
+        btn.disabled = true;
+        btn.innerText = "جاري المعالجة...";
+        await callback();
+        btn.disabled = false;
+        btn.innerText = "تأكيد";
+    }
+
+    async function sendOrder() {
+        const id = document.getElementById('c_id').value, ph = document.getElementById('c_ph').value, ref = document.getElementById('c_ref').value;
+        if(!id || !ph || !ref) return Swal.fire('نقص في البيانات', '', 'warning');
+        
+        const orderNum = Math.floor(100000 + Math.random() * 900000);
+        
+        handleRequest('confirmOrderBtn', async () => {
+            const item = document.getElementById('m_title').innerText;
+            await fetch(CONFIG.SHEET_API, {
+                method: 'POST',
+                mode: 'no-cors',
+                body: JSON.stringify({
+                    type: "newOrder", // أضفنا النوع ليعرف السكريبت ماذا يفعل
+                    orderId: orderNum, 
+                    itemName: item,
+                    playerId: id,
+                    phone: ph,
+                    ref: ref
+                })
+            });
+            closeModals();
+            Swal.fire('تم استلام طلبك!', `رقم التتبع: ${orderNum}`, 'success');
+        });
+    }
+
+    // الوظائف المساعدة
+    function openOrder(n) { document.getElementById('m_title').innerText = n; document.getElementById('pay_modal').style.display='flex'; }
+    function openModal(id) { document.getElementById(id).style.display='flex'; }
+    function closeModals() { document.querySelectorAll('.modal').forEach(m => m.style.display='none'); }
+    function copyText(t) { navigator.clipboard.writeText(t); Swal.fire({title:'تم النسخ', timer:800, showConfirmButton:false, toast:true, position:'top'}); }
+
     async function submitReview() {
         const n = document.getElementById('rev_name').value, t = document.getElementById('rev_text').value;
-        if(!n || !t || currentStars === 0) return Swal.fire('تنبيه', 'يرجى ملء جميع خانات التقييم', 'warning');
-        
-        Swal.fire({title: 'جاري النشر...', didOpen: () => Swal.showLoading()});
-        await fetch(CONFIG.SHEET_API, {
-            method: 'POST',
-            mode: 'no-cors',
-            body: JSON.stringify({type: "addReview", name: n, stars: currentStars, comment: t})
+        if(!n || !t || currentStars === 0) return Swal.fire('تنبيه', 'أكمل التقييم أولاً', 'warning');
+        handleRequest('revBtn', async () => {
+            await fetch(CONFIG.SHEET_API, { method: 'POST', mode: 'no-cors', body: JSON.stringify({type: "addReview", name: n, stars: currentStars, comment: t}) });
+            Swal.fire('شكراً لك!', 'تم نشر تقييمك بنجاح', 'success').then(()=>location.reload());
         });
-        Swal.fire('تم!', 'شكراً لثقتك، تم نشر تقييمك', 'success').then(() => location.reload());
     }
 
-    // جلب التقييمات من ورقة Reviews
-    async function loadReviews() {
-        try {
-            const res = await fetch(`${CONFIG.SHEET_API}?getReviews=true`);
-            const data = await res.json();
-            const container = document.getElementById('reviews-container');
-            if(data.length === 0) { container.innerHTML = "<p style='text-align:center; color:#555;'>لا توجد تقييمات بعد.</p>"; return; }
-            
-            container.innerHTML = data.reverse().map(r => `
-                <div class="review-card">
-                    <div style="display:flex; justify-content:space-between">
-                        <span class="review-name">${r.name}</span>
-                        <span style="color:#ffca08">${"★".repeat(r.stars)}</span>
-                    </div>
-                    <p style="font-size:0.85rem; color:#ccc; margin-top:8px;">${r.comment}</p>
-                </div>`).join('');
-        } catch (e) { console.error("Error loading reviews"); }
-    }
-
-    // تتبع الطلب من Sheet2
     async function trackMyOrder() {
         const orderId = document.getElementById('orderIdInput').value;
         if(!orderId) return;
         const resDiv = document.getElementById('trackStatusResult');
-        resDiv.style.display = "block"; resDiv.innerHTML = "جاري الاتصال بقاعدة البيانات...";
-        
+        resDiv.style.display = "block"; resDiv.innerHTML = "جاري البحث...";
         try {
             const response = await fetch(`${CONFIG.SHEET_API}?orderId=${orderId}`);
             const data = await response.json();
-            resDiv.innerHTML = `حالة الطلب: <b style="color:var(--neon-blue); font-size:1rem;">${data.status}</b>`;
-        } catch (e) { resDiv.innerHTML = "الرقم غير صحيح أو الطلب غير مسجل"; }
+            resDiv.innerHTML = `حالة الطلب: <b style="color:var(--neon-blue)">${data.status}</b>`;
+        } catch (e) { resDiv.innerHTML = "الرقم غير موجود"; }
     }
 
-    // فتح وإغلاق النوافذ
-    function openOrder(n) { document.getElementById('m_title').innerText = n; document.getElementById('pay_modal').style.display='flex'; }
-    function openModal(id) { document.getElementById(id).style.display='flex'; }
-    function closeModals() { document.querySelectorAll('.modal').forEach(m => m.style.display='none'); }
-    function copyText(t) { navigator.clipboard.writeText(t); Swal.fire({title:'تم النسخ!', text:t, icon:'success', timer:800, showConfirmButton:false, toast:true, position:'top'}); }
-
-    // إرسال طلب شراء
-    async function sendOrder() {
-        const id = document.getElementById('c_id').value, ph = document.getElementById('c_ph').value, ref = document.getElementById('c_ref').value;
-        const item = document.getElementById('m_title').innerText;
-        if(!id || !ph || !ref) return Swal.fire('بيانات ناقصة', 'يرجى إكمال معلومات الدفع والآيدي', 'warning');
-        
-        const orderNum = Math.floor(100000 + Math.random() * 900000);
-        Swal.fire({title: 'جاري تسجيل طلبك...', didOpen: () => Swal.showLoading()});
-
-        // حفظ في Sheet2 وإرسال للتلغرام
-        await fetch(CONFIG.SHEET_API, {method: 'POST', mode: 'no-cors', body: JSON.stringify({orderId: orderNum, itemName: item})});
-        const msg = `📥 طلب جديد VIP\n------------------\n📦 المنتج: ${item}\n🆔 الآيدي: ${id}\n📞 هاتف: ${ph}\n🧾 المرجع: ${ref}\n🔢 رقم الطلب: ${orderNum}`;
-        await fetch(`https://api.telegram.org/bot${CONFIG.TOKEN}/sendMessage?chat_id=${CONFIG.CHAT_ID}&text=${encodeURIComponent(msg)}`);
-        
-        closeModals();
-        Swal.fire({icon: 'success', title: 'تم استلام طلبك', html: `رقم التتبع الخاص بك هو: <b style="color:var(--neon-blue); font-size:1.4rem;">${orderNum}</b>`});
-    }
-
-    async function sendSupport() {
-        const n = document.getElementById('s_n').value, m = document.getElementById('s_m').value;
-        if(!n || !m) return;
-        await fetch(`https://api.telegram.org/bot${CONFIG.TOKEN}/sendMessage?chat_id=${CONFIG.CHAT_ID}&text=${encodeURIComponent('🛠️ تذكرة دعم\nالمرسل: '+n+'\nالرسالة: '+m)}`);
-        closeModals();
-        Swal.fire('تم الإرسال', 'سنتواصل معك قريباً عبر الواتساب', 'success');
-    }
-
-    window.onload = () => { fetchProducts(); loadReviews(); };
+    window.onload = () => { fetchProducts(); };
 </script>
 </body>
 </html>
