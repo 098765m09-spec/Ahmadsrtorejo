@@ -3,14 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    
-    <title>Ahmad Khaled Store | متجر أحمد خالد لشحن الألعاب</title>
-    <meta name="description" content="متجر أحمد خالد - خيارك الأول لشحن الألعاب والخدمات الرقمية بسرعة وأمان. دعم فني متواصل وأفضل الأسعار.">
-    <meta name="keywords" content="شحن العاب, شدات, جواهر, بنك صفوة, باينانس, احمد خالد, Ahmad Khaled">
-    <meta property="og:title" content="Ahmad Khaled Store">
-    <meta property="og:description" content="اشحن ألعابك الآن بأمان وسرعة فائقة.">
-    <meta property="og:image" content="615339898_17852858355604926_6695071254693001252_n.jpg">
-
+    <title>Ahmad Khaled Store | VIP Cyberpunk</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
@@ -22,7 +15,7 @@
             --whatsapp-green: #25d366;
         }
 
-        * { box-sizing: border-box; font-family: 'Cairo', sans-serif; -webkit-tap-highlight-color: transparent; scroll-behavior: smooth; }
+        * { box-sizing: border-box; font-family: 'Cairo', sans-serif; -webkit-tap-highlight-color: transparent; }
         body { background-color: var(--bg-dark); color: white; margin: 0; overflow-x: hidden; user-select: none; }
 
         /* تأثير Scanlines الشاشة المستقبيلة */
@@ -48,7 +41,7 @@
         .banner-content h1 { position: relative; z-index: 2; font-size: 1.6rem; font-weight: 900; color: #fff; text-shadow: 0 0 15px var(--neon-blue); border: 2px solid var(--neon-blue); padding: 8px 25px; border-radius: 5px; letter-spacing: 2px; }
 
         /* شبكة المنتجات */
-        .shop-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 20px 4%; min-height: 200px; }
+        .shop-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 20px 4%; }
         @media (min-width: 900px) { .shop-grid { grid-template-columns: repeat(4, 1fr); } }
         .product-card { background: var(--glass); border-radius: 15px; padding: 12px; text-align: center; border: 1px solid rgba(255,255,255,0.05); transition: 0.4s; position: relative; }
         .product-card:hover { transform: translateY(-8px); border-color: var(--neon-blue); box-shadow: 0 10px 20px rgba(0, 210, 255, 0.2); }
@@ -57,8 +50,7 @@
         .price-tag { color: var(--neon-blue); font-weight: 900; font-size: 1.1rem; display: block; margin-bottom: 12px; }
 
         .action-btn { background: linear-gradient(45deg, var(--neon-purple), var(--neon-blue)); border: none; color: white; padding: 10px; width: 100%; border-radius: 8px; font-weight: 900; cursor: pointer; transition: 0.3s; text-transform: uppercase; }
-        .action-btn:hover:not(:disabled) { filter: brightness(1.2); box-shadow: 0 0 20px rgba(0, 210, 255, 0.4); }
-        .action-btn:disabled { background: #333; cursor: not-allowed; opacity: 0.6; }
+        .action-btn:hover { filter: brightness(1.2); box-shadow: 0 0 20px rgba(0, 210, 255, 0.4); }
 
         /* تتبع الطلب */
         .tracking-area { background: #070a0e; padding: 30px 4%; border-top: 1px solid rgba(0,210,255,0.1); margin-top: 20px; }
@@ -67,31 +59,37 @@
 
         /* قسم التقييمات */
         .reviews-section { padding: 40px 4%; background: #05070a; border-top: 1px solid var(--neon-blue); }
+        .add-review-box { background: #0d1117; padding: 20px; border-radius: 12px; border: 1px solid var(--neon-purple); margin-bottom: 30px; }
+        .star-rating { display: flex; gap: 8px; margin: 10px 0; font-size: 1.8rem; color: #333; cursor: pointer; }
+        .star-rating .active { color: #ffca08; text-shadow: 0 0 10px rgba(255,202,8,0.6); }
         .review-card { background: var(--glass); padding: 15px; border-radius: 10px; margin-bottom: 15px; border-right: 4px solid var(--neon-blue); }
         .review-name { font-weight: 800; color: var(--neon-blue); }
+
+        /* طرق الدفع */
+        .payment-info { background: rgba(0, 210, 255, 0.05); border: 1px dashed var(--neon-blue); padding: 12px; border-radius: 8px; margin: 15px 0; font-size: 0.85rem; }
+        .pay-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+        .copy-btn { background: var(--neon-blue); border: none; padding: 4px 10px; border-radius: 5px; font-size: 0.7rem; font-weight: 900; cursor: pointer; color: #000; }
 
         /* النوافذ الاحترافية */
         .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 2000; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(10px); }
         .modal-body { background: #05070a; width: 100%; max-width: 380px; padding: 25px; border-radius: 8px; border: 2px solid var(--neon-blue); position: relative; box-shadow: 0 0 30px rgba(0,210,255,0.2); }
         input, textarea { width: 100%; padding: 12px; background: #0d1117; border: 1px solid #1f2937; border-radius: 8px; color: white; margin-bottom: 12px; outline: none; font-size: 0.9rem; }
+        input:focus { border-color: var(--neon-blue); }
 
-        /* الأزرار العائمة */
-        .whatsapp-float { position: fixed; bottom: 25px; left: 25px; background: var(--whatsapp-green); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 9999; box-shadow: 0 0 20px rgba(37, 211, 102, 0.4); }
-        #backToTop { position: fixed; bottom: 25px; right: 25px; background: var(--neon-blue); width: 50px; height: 50px; border-radius: 12px; display: none; align-items: center; justify-content: center; z-index: 9999; cursor: pointer; border: none; box-shadow: 0 0 15px var(--neon-blue); color: black; font-weight: bold; }
+        .whatsapp-float { position: fixed; bottom: 25px; left: 25px; background: var(--whatsapp-green); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 9999; box-shadow: 0 0 20px rgba(37, 211, 102, 0.4); transition: 0.3s; }
+        .whatsapp-float:hover { transform: scale(1.1); }
+        .whatsapp-float svg { width: 32px; fill: white; }
 
         footer { background: #000; padding: 30px; text-align: center; font-size: 0.75rem; color: #555; border-top: 1px solid #111; }
-        .no-results { grid-column: 1 / -1; text-align: center; padding: 50px; color: #555; }
     </style>
 </head>
 <body>
 
 <div class="scanlines"></div>
-<div id="preloader"><div class="loader-logo">Ahmad Khaled Store...</div></div>
-
-<button id="backToTop" onclick="window.scrollTo(0,0)">↑</button>
+<div id="preloader"><div class="loader-logo">INITIALIZING VIP SYSTEM...</div></div>
 
 <a href="https://wa.me/962780547443" target="_blank" class="whatsapp-float">
-    <svg width="32" fill="white" viewBox="0 0 448 512"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.7 17.8 69.4 27.2 106.2 27.2 122.4 0 222-99.6 222-222 0-59.3-23-115.1-65-157.1zM223.9 445.9c-33.1 0-65.7-8.9-94.1-25.7l-6.7-4-69.8 18.3L71.6 366l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.9-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-82.7 184.6-184.5 185z"/></svg>
+    <svg viewBox="0 0 448 512"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.7 17.8 69.4 27.2 106.2 27.2 122.4 0 222-99.6 222-222 0-59.3-23-115.1-65-157.1zM223.9 445.9c-33.1 0-65.7-8.9-94.1-25.7l-6.7-4-69.8 18.3L71.6 366l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.9-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-82.7 184.6-184.5 185z"/></svg>
 </a>
 
 <header>
@@ -104,7 +102,7 @@
 </div>
 
 <section class="banner-wrapper">
-    <div class="banner-content"><h1>AHMAD KHALED</h1></div>
+    <div class="banner-content"><h1>AHMAD KHALED VIP</h1></div>
 </section>
 
 <div class="shop-grid" id="product-list"></div>
@@ -113,69 +111,68 @@
     <div class="tracking-card">
         <h2 style="font-size: 1.1rem; color: var(--neon-blue); margin-bottom: 15px;">🔍 تتبع حالة طلبك</h2>
         <input type="text" id="orderIdInput" placeholder="أدخل رقم طلبك (6 أرقام)">
-        <button class="action-btn" id="trackBtn" onclick="trackMyOrder()">تحقق الآن</button>
+        <button class="action-btn" onclick="trackMyOrder()">تحقق الآن</button>
         <div id="trackStatusResult"></div>
     </div>
 </section>
 
 <section class="reviews-section">
-    <h2 style="text-align: center; color: var(--neon-blue); margin-bottom: 25px;">⭐ تقييمات العملاء</h2>
+    <h2 style="text-align: center; color: var(--neon-blue); margin-bottom: 25px;">⭐ تقييمات العملاء الـ VIP</h2>
     <div class="add-review-box">
         <input type="text" id="rev_name" placeholder="اسمك الكريم">
-        <div class="star-rating" id="starInput" style="display: flex; gap: 8px; margin: 10px 0; font-size: 1.8rem; color: #333; cursor: pointer;">
+        <div class="star-rating" id="starInput">
             <span onclick="setStars(1)">★</span><span onclick="setStars(2)">★</span><span onclick="setStars(3)">★</span><span onclick="setStars(4)">★</span><span onclick="setStars(5)">★</span>
         </div>
-        <textarea id="rev_text" rows="2" placeholder="ما رأيك في الخدمة؟"></textarea>
-        <button class="action-btn" id="revBtn" onclick="submitReview()">نشر التقييم</button>
+        <textarea id="rev_text" rows="2" placeholder="ما رأيك في جودة وسرعة الخدمة؟"></textarea>
+        <button class="action-btn" onclick="submitReview()">نشر التقييم</button>
     </div>
-    <div id="reviews-container"></div>
+    <div id="reviews-container">
+        <p style="text-align: center; color: #444;">جاري جلب الآراء...</p>
+    </div>
 </section>
 
 <div class="modal" id="pay_modal">
     <div class="modal-body">
-        <h3 id="m_title" style="color:var(--neon-blue); margin-bottom: 15px;"></h3>
+        <h3 id="m_title" style="color:var(--neon-blue); margin-bottom: 15px; font-size: 1.1rem;"></h3>
         <input type="text" id="c_id" placeholder="آيدي اللاعب (ID)">
-        <input type="text" id="c_ph" placeholder="رقم الواتساب">
-        <div style="background: rgba(0,210,255,0.05); border: 1px dashed var(--neon-blue); padding: 10px; border-radius: 8px; margin-bottom: 12px; font-size: 0.8rem;">
-            صفوة: 0780547443 <button onclick="copyText('0780547443')" style="float:left">نسخ</button><br><br>
-            باينانس: 827157346 <button onclick="copyText('827157346')" style="float:left">نسخ</button>
+        <input type="text" id="c_ph" placeholder="رقم الواتساب للتواصل">
+        
+        <div class="payment-info">
+            <div class="pay-row"><span>🏦 بنك صفوة: <b>0780547443</b></span><button class="copy-btn" onclick="copyText('0780547443')">نسخ</button></div>
+            <div style="height: 10px;"></div>
+            <div class="pay-row"><span>🟡 باينانس: <b>827157346</b></span><button class="copy-btn" onclick="copyText('827157346')">نسخ</button></div>
         </div>
-        <input type="text" id="c_ref" placeholder="رقم المرجع (Ref)">
-        <button class="action-btn" id="confirmOrderBtn" onclick="sendOrder()">تأكيد الطلب</button>
-        <button onclick="closeModals()" style="background:none; border:none; color:#555; width:100%; margin-top:10px;">إلغاء</button>
+
+        <input type="text" id="c_ref" placeholder="رقم المرجع (Ref Number)">
+        <button class="action-btn" onclick="sendOrder()">تأكيد وإرسال الطلب</button>
+        <button onclick="closeModals()" style="background:none; border:none; color:#555; width:100%; margin-top:10px; cursor:pointer; font-weight: 700;">إلغاء العملية</button>
     </div>
 </div>
 
 <div class="modal" id="support_modal">
     <div class="modal-body">
-        <h3 style="color:var(--neon-purple)">الدعم الفني</h3>
+        <h3 style="color:var(--neon-purple); margin-bottom:15px;">مركز الدعم الفني</h3>
         <input type="text" id="s_n" placeholder="اسمك">
-        <textarea id="s_m" rows="3" placeholder="المشكلة..."></textarea>
-        <button class="action-btn" id="supportBtn" onclick="sendSupport()">إرسال التذكرة</button>
-        <button onclick="closeModals()" style="background:none; border:none; color:#555; width:100%; margin-top:10px;">إغلاق</button>
+        <textarea id="s_m" rows="3" placeholder="اكتب مشكلتك بالتفصيل..."></textarea>
+        <button class="action-btn" style="background:var(--neon-purple);" onclick="sendSupport()">إرسال التذكرة</button>
+        <button onclick="closeModals()" style="background:none; border:none; color:#555; width:100%; margin-top:10px; cursor:pointer;">إغلاق</button>
     </div>
 </div>
 
-<footer><p>© 2026 AHMAD KHALED STORE | جميع الحقوق محفوظة</p></footer>
+<footer>
+    <p>© 2026 AHMAD KHALED  STORE | جميع الحقوق محفوظة</p>
+</footer>
 
 <script>
     const CONFIG = { 
-        SHEET_API: "https://script.google.com/macros/s/AKfycbwF6SU63yT9-bGgyxYZojFVVOdCin7TTxo4bhWwp1MlQT0aHTTWZ7kcyGwEtftLHidAfQ/exec" 
+        TOKEN: "8081128918:AAHfZvluKi6a22xQvHCIhuYJrPXszHo7TEA", 
+        CHAT_ID: "6974387734",
+        SHEET_API: "https://script.google.com/macros/s/AKfycbw77WAaDxz1h26QxKdXOVmrUy4S8uFRed7P85eRzIM-OwjF64v9lFctmu23yn6-gXqqmQ/exec"
     };
 
     let allProducts = [], currentStars = 0;
 
-    // جلب المنتجات والتقييمات عند التحميل
-    window.onload = () => { 
-        fetchProducts(); 
-        loadReviews(); 
-    };
-
-    // مراقبة التمرير لزر العودة للأعلى
-    window.onscroll = () => {
-        document.getElementById("backToTop").style.display = (window.scrollY > 500) ? "flex" : "none";
-    };
-
+    // جلب المنتجات من Sheet1
     async function fetchProducts() {
         try {
             const res = await fetch(CONFIG.SHEET_API);
@@ -186,14 +183,9 @@
     }
 
     function renderProducts(data) {
-        const container = document.getElementById('product-list');
-        if (data.length === 0) {
-            container.innerHTML = `<div class="no-results">لا يوجد نتائج تطابق بحثك...</div>`;
-            return;
-        }
-        container.innerHTML = data.map(p => `
+        document.getElementById('product-list').innerHTML = data.map(p => `
             <div class="product-card">
-                <img src="${p.img}" loading="lazy" onerror="this.src='https://via.placeholder.com/200/05070a/00d2ff?text=Product'">
+                <img src="${p.img}" onerror="this.src='https://via.placeholder.com/200/05070a/00d2ff?text=Product'">
                 <h3>${p.name}</h3>
                 <span class="price-tag">${p.price}</span>
                 <button class="action-btn" onclick="openOrder('${p.name}')">اطلب الآن</button>
@@ -202,99 +194,95 @@
 
     function filterProducts() {
         const val = document.getElementById('searchInput').value.toLowerCase();
-        const filtered = allProducts.filter(p => p.name.toLowerCase().includes(val));
-        renderProducts(filtered);
+        renderProducts(allProducts.filter(p => p.name.toLowerCase().includes(val)));
     }
 
-    async function loadReviews() {
-        try {
-            const res = await fetch(`${CONFIG.SHEET_API}?getReviews=true&_=${new Date().getTime()}`);
-            const data = await res.json();
-            const container = document.getElementById('reviews-container');
-            if(!data || data.length === 0) { container.innerHTML = "<p style='text-align:center; color:#444;'>لا توجد تقييمات.</p>"; return; }
-            
-            container.innerHTML = data.reverse().map(r => `
-                <div class="review-card">
-                    <div style="display:flex; justify-content:space-between">
-                        <span class="review-name">${r.name}</span>
-                        <span style="color:#ffca08">${"★".repeat(parseInt(r.stars) || 5)}</span>
-                    </div>
-                    <p style="font-size:0.85rem; color:#ccc; margin-top:8px;">${r.comment}</p>
-                </div>`).join('');
-        } catch (e) { console.error("Reviews Error"); }
-    }
-
+    // نظام النجوم
     function setStars(n) {
         currentStars = n;
-        document.querySelectorAll('#starInput span').forEach((s, i) => {
-            s.style.color = (i < n) ? "#ffca08" : "#333";
-        });
+        document.querySelectorAll('#starInput span').forEach((s, i) => s.classList.toggle('active', i < n));
     }
 
+    // إرسال تقييم إلى ورقة Reviews
     async function submitReview() {
         const n = document.getElementById('rev_name').value, t = document.getElementById('rev_text').value;
-        if(!n || !t || currentStars === 0) return Swal.fire('تنبيه', 'أكمل بيانات التقييم', 'warning');
+        if(!n || !t || currentStars === 0) return Swal.fire('تنبيه', 'يرجى ملء جميع خانات التقييم', 'warning');
         
-        const btn = document.getElementById('revBtn');
-        btn.disabled = true; btn.innerText = "جاري النشر...";
-
+        Swal.fire({title: 'جاري النشر...', didOpen: () => Swal.showLoading()});
         await fetch(CONFIG.SHEET_API, {
             method: 'POST',
             mode: 'no-cors',
             body: JSON.stringify({type: "addReview", name: n, stars: currentStars, comment: t})
         });
-        
-        Swal.fire('تم!', 'شكراً لتقييمك', 'success').then(() => location.reload());
+        Swal.fire('تم!', 'شكراً لثقتك، تم نشر تقييمك', 'success').then(() => location.reload());
     }
 
-    async function sendOrder() {
-        const id = document.getElementById('c_id').value, ph = document.getElementById('c_ph').value, ref = document.getElementById('c_ref').value;
-        const item = document.getElementById('m_title').innerText;
-        if(!id || !ph || !ref) return Swal.fire('بيانات ناقصة', 'يرجى إكمال الحقول', 'warning');
-        
-        const btn = document.getElementById('confirmOrderBtn');
-        btn.disabled = true; btn.innerText = "جاري الإرسال...";
-
-        const orderNum = Math.floor(100000 + Math.random() * 900000);
-        await fetch(CONFIG.SHEET_API, {
-            method: 'POST',
-            mode: 'no-cors',
-            body: JSON.stringify({type: "newOrder", orderId: orderNum, itemName: item, playerId: id, phone: ph, ref: ref})
-        });
-
-        closeModals();
-        Swal.fire({icon: 'success', title: 'تم استلام طلبك', html: `رقم التتبع: <b style="color:var(--neon-blue)">${orderNum}</b>`});
-        btn.disabled = false; btn.innerText = "تأكيد الطلب";
+    // جلب التقييمات من ورقة Reviews
+    async function loadReviews() {
+        try {
+            const res = await fetch(`${CONFIG.SHEET_API}?getReviews=true`);
+            const data = await res.json();
+            const container = document.getElementById('reviews-container');
+            if(data.length === 0) { container.innerHTML = "<p style='text-align:center; color:#555;'>لا توجد تقييمات بعد.</p>"; return; }
+            
+            container.innerHTML = data.reverse().map(r => `
+                <div class="review-card">
+                    <div style="display:flex; justify-content:space-between">
+                        <span class="review-name">${r.name}</span>
+                        <span style="color:#ffca08">${"★".repeat(r.stars)}</span>
+                    </div>
+                    <p style="font-size:0.85rem; color:#ccc; margin-top:8px;">${r.comment}</p>
+                </div>`).join('');
+        } catch (e) { console.error("Error loading reviews"); }
     }
 
+    // تتبع الطلب من Sheet2
     async function trackMyOrder() {
         const orderId = document.getElementById('orderIdInput').value;
         if(!orderId) return;
         const resDiv = document.getElementById('trackStatusResult');
-        resDiv.style.display = "block"; resDiv.innerHTML = "جاري التتبع...";
+        resDiv.style.display = "block"; resDiv.innerHTML = "جاري الاتصال بقاعدة البيانات...";
         
         try {
             const response = await fetch(`${CONFIG.SHEET_API}?orderId=${orderId}`);
             const data = await response.json();
-            resDiv.innerHTML = `حالة الطلب: <b style="color:var(--neon-blue)">${data.status}</b>`;
-        } catch (e) { resDiv.innerHTML = "رقم الطلب غير موجود"; }
+            resDiv.innerHTML = `حالة الطلب: <b style="color:var(--neon-blue); font-size:1rem;">${data.status}</b>`;
+        } catch (e) { resDiv.innerHTML = "الرقم غير صحيح أو الطلب غير مسجل"; }
     }
 
+    // فتح وإغلاق النوافذ
     function openOrder(n) { document.getElementById('m_title').innerText = n; document.getElementById('pay_modal').style.display='flex'; }
     function openModal(id) { document.getElementById(id).style.display='flex'; }
     function closeModals() { document.querySelectorAll('.modal').forEach(m => m.style.display='none'); }
-    function copyText(t) { navigator.clipboard.writeText(t); Swal.fire({title:'تم النسخ', timer:800, showConfirmButton:false, toast:true, position:'top'}); }
+    function copyText(t) { navigator.clipboard.writeText(t); Swal.fire({title:'تم النسخ!', text:t, icon:'success', timer:800, showConfirmButton:false, toast:true, position:'top'}); }
+
+    // إرسال طلب شراء
+    async function sendOrder() {
+        const id = document.getElementById('c_id').value, ph = document.getElementById('c_ph').value, ref = document.getElementById('c_ref').value;
+        const item = document.getElementById('m_title').innerText;
+        if(!id || !ph || !ref) return Swal.fire('بيانات ناقصة', 'يرجى إكمال معلومات الدفع والآيدي', 'warning');
+        
+        const orderNum = Math.floor(100000 + Math.random() * 900000);
+        Swal.fire({title: 'جاري تسجيل طلبك...', didOpen: () => Swal.showLoading()});
+
+        // حفظ في Sheet2 وإرسال للتلغرام
+        await fetch(CONFIG.SHEET_API, {method: 'POST', mode: 'no-cors', body: JSON.stringify({orderId: orderNum, itemName: item})});
+        const msg = `📥 طلب جديد VIP\n------------------\n📦 المنتج: ${item}\n🆔 الآيدي: ${id}\n📞 هاتف: ${ph}\n🧾 المرجع: ${ref}\n🔢 رقم الطلب: ${orderNum}`;
+        await fetch(`https://api.telegram.org/bot${CONFIG.TOKEN}/sendMessage?chat_id=${CONFIG.CHAT_ID}&text=${encodeURIComponent(msg)}`);
+        
+        closeModals();
+        Swal.fire({icon: 'success', title: 'تم استلام طلبك', html: `رقم التتبع الخاص بك هو: <b style="color:var(--neon-blue); font-size:1.4rem;">${orderNum}</b>`});
+    }
 
     async function sendSupport() {
         const n = document.getElementById('s_n').value, m = document.getElementById('s_m').value;
         if(!n || !m) return;
-        const btn = document.getElementById('supportBtn');
-        btn.disabled = true;
-        // إرسال دعم (يمكنك إضافة type: support في السكريبت إذا أردت معالجة خاصة)
-        Swal.fire('تم الإرسال', 'سنتواصل معك قريباً', 'success');
+        await fetch(`https://api.telegram.org/bot${CONFIG.TOKEN}/sendMessage?chat_id=${CONFIG.CHAT_ID}&text=${encodeURIComponent('🛠️ تذكرة دعم\nالمرسل: '+n+'\nالرسالة: '+m)}`);
         closeModals();
-        btn.disabled = false;
+        Swal.fire('تم الإرسال', 'سنتواصل معك قريباً عبر الواتساب', 'success');
     }
+
+    window.onload = () => { fetchProducts(); loadReviews(); };
 </script>
 </body>
 </html>
